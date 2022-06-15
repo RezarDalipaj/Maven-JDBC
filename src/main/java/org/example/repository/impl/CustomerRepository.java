@@ -169,6 +169,8 @@ public class CustomerRepository extends BaseRepository<Customer, Integer>{
                 String cname = result.getString("customerName");
                 int oNr = result.getInt("orderNumber");
                 Customer c = new Customer();
+                Order o = new Order();
+                o.setOrderNumber(oNr);
                 int check = 0;
                 for (Customer cust : customerss) {
                     if(cust.getCustomerName().equalsIgnoreCase(cname)){
@@ -176,21 +178,22 @@ public class CustomerRepository extends BaseRepository<Customer, Integer>{
                         break;
                     }
                 }
-                c.setCustomerName(cname);
                 if (check == 1){
-                    System.out.println(oNr);
+                    System.out.println(o.getOrderNumber());
                 }
                 else {
+                    c.setCustomerName(cname);
                     customerss.add(c);
                     System.out.println("----------------------------------");
                     System.out.println("Customer " + c.getCustomerName());
-                    System.out.println("Orders:\n"+oNr);
+                    System.out.println("Orders:\n"+o.getOrderNumber());
                 }
             }
 
         } catch (SQLException e) {
             System.err.println(e);
         }
+
         return true;
     }
 }
